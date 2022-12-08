@@ -35,7 +35,7 @@ const MyRoutes = ()=>{
 
                 <Route path="/Info/:id" element={<Info />} >
                      
-                      <Route  index element={<Fiche/>} />   /Info/:id/DossierMedical/ListConsultation/:idConsultation
+                      <Route  index element={<Fiche/>} />   
                      
                      <Route  path="Fiche" element={<Fiche/>} />
 
@@ -44,7 +44,7 @@ const MyRoutes = ()=>{
                      <Route  path="NextRv" element={<NextRv/>} />
 
                      <Route  path="DossierMedical" element={<DossierMedical/>} >
-
+ 
                     <Route       path="ListConsultation/:idConsultation" element={<ListConsultation/>} />
 
                      </Route>
