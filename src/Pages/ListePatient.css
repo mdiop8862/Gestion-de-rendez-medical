@@ -1,0 +1,89 @@
+.listpatient{
+       
+      left: 16.8%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin-top: 80px;
+     
+}
+
+.Title{
+    color : white ;
+    margin-left: 75px;
+    background:#b7ffe913  !important;
+    width: 20%;
+    height: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    
+}
+hr {
+    background-color : #808191 !important ;
+    height: 2px;
+    width: 90%;
+    margin-left: 65px !important;
+    margin-top: 50px !important;
+}
+
+.TableContainer{
+   
+    
+    width: 90% !important;
+    margin-top: 50px !important;
+  
+    
+}
+ 
+.bg-side{
+    background-color: #181b3a !important;
+    color: #808191 !important;
+}
+.bg-green {
+    background-color: #b7ffe913;
+}
+.action-info{
+    color:#01d293 !important  ;
+    font-size: 20px;
+
+}
+
+.action-modify{
+    color:#2884ff !important  ;
+    font-size: 20px;
+
+}
+
+.action-delete{
+    color : #e1424e !important  ;
+    font-size: 20px;
+
+}
+.moreinfo{
+  
+    transition-duration: 1s;
+    width: 90% !important;
+    height: 150px !important;
+    background-color: white !important;
+    transition-property: display;
+    transition-timing-function: ease-in;
+    display: none !important;
+}
+
+.seeMoreInfo{
+    
+    display: table-cell !important;
+}
+.listeinfo{
+    width: 50%;
+    margin-left: 80px;
+    
+}
+.listeindex{
+    color: black;
+    font-weight: bold;
+}
+.listevalue{
+    color: #808191;
+}

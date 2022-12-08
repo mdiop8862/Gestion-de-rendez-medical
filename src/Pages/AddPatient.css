@@ -1,0 +1,79 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.Addpatient{
+   
+    position: absolute;
+    top:0 ;
+    left: 19% ;
+    right: 2.5% ;
+    bottom: 0;
+    margin-top: 102px;
+    margin-bottom: 15px;
+    background-color: #181b3a ;
+    
+}
+.myForm{
+    margin-left: 14px !important ;
+    margin-top: 45px;
+
+}
+
+#add .Addpatient {
+    font-weight: normal !important; 
+
+}
+.myinput {
+    
+    width: 100%;
+    border: none !important;
+    outline: none !important;
+    border-bottom: 1px solid  white !important;
+    border-radius: 0%;
+    background-color: transparent;
+    font-weight: bold;
+    color: #808191;
+
+}
+.mylabel{
+    position: relative;
+    top: -30px;
+    transition-property: top ;
+    transition-duration: 1s;
+    
+}
+input:focus~label , 
+input:valid~label   {
+    top: -59px !important ;
+    
+
+}
+
+.form-group{
+    margin-bottom: 50px;
+}
+
+.right{
+    margin-right: 12px !important;
+}
+
+/*color: var(--heading-color); */
+
+.rightlast {
+    margin-right: 1px !important;
+}
+.form-group input:focus , 
+.form-group input:valid {
+    border-color: #01d293   !important;
+}
+
+.mb-2{
+    margin-top: 5px;
+}
+.group{
+    margin-top: 80px !important;
+}

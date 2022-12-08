@@ -1,0 +1,29 @@
+.btnadd{
+    margin-top: 43px !important;
+}
+
+#anotherform{
+    margin-top: 45px;
+}
+
+.sopatient{
+    height: 350px;
+    width: 350px !important;
+    overflow: auto;
+    background-color: white ;
+    border-radius: 5px;
+
+    margin-top: 8px;
+}
+
+.labelchoose{
+    margin-bottom: 20px !important ;
+}
+
+.inputchoose{
+    height: 34px;
+}
+.infopatient{
+    font-size: 11px;
+    cursor: pointer;
+}

@@ -1,0 +1,40 @@
+.MyContainerInfo1{
+    background-color: #0b0c28;
+    position: absolute;
+    left: 19% ;
+    right: 2.5% ;
+    margin-top: 102px;
+    padding-bottom: 20px;
+    background-color: #181b3a ;
+    
+    
+}
+
+
+.myitem{
+
+ 
+     color : #fff !important; 
+     font-Size : 1.2rem ; 
+
+
+    
+}
+
+
+
+
+
+.activeLink {
+    background: #b7ffe913;
+    border-radius: 5px;
+    
+
+}
+
+
+
+.myhnav{
+    margin-left: 1px !important;
+
+}

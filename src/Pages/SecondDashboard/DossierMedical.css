@@ -1,0 +1,23 @@
+.myContainerDMedical {
+    margin-top: 10px;
+    margin-left: 50px !important;
+    margin-bottom: 55px ; 
+    height: 180vh;
+    position: relative;
+}
+#sidebarTwo {
+        position: absolute;
+        opacity: 0.9;
+        height: 100vh;
+        margin-left: 10px;
+        width: 19%;
+}
+.contentContainer{
+    margin-left: 20%;
+
+    width: 80%;
+
+    position: absolute;
+
+}
+
