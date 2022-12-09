@@ -15,11 +15,11 @@ const ListRv = ()=>{
     
 
     const [tableInfo , setTableInfo] = useState (  [
-        { id : "12" ,  First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 , Daterv : "10/03/2022" , Heure : "13:00" , note : "le patient est dans la base de donne " } , 
-        { id : "13" , First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 , Daterv : "10/03/2022" , Heure : "13:00" , note : "le patient n'est pas dans la base de donnes " } , 
-        {id : "14" ,  First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 , Daterv : "10/03/2022" , Heure : "13:00" , note : "le patient est dans la base de donne "  } ,
-        {id : "15" , First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 ,  Daterv : "10/03/2022" , Heure : "13:00" , note : "le patient est dans la base de donne " } , 
-        {id : "16" ,  First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 , Daterv : "10/03/2022" , Heure : "13:00" , note : "le patient est dans la base de donne " } 
+        { id : "12" ,  First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 , Daterv : "10/03/2022" , Heure : "13:00" , note : "BLA BLA BLA BL BLA BLA BLA BLA BLA " } , 
+        { id : "13" , First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 , Daterv : "10/03/2022" , Heure : "13:00" , note : "BLA BLA BLA BLA BLA BLA BLA BLA BLA " } , 
+        {id : "14" ,  First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 , Daterv : "10/03/2022" , Heure : "13:00" , note : "BLA BLA BLA BL BLA BLA BLA BLA BLA "  } ,
+        {id : "15" , First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 ,  Daterv : "10/03/2022" , Heure : "13:00" , note : "BLA BLA BLA BL BLA BLA BLA BLA BLA " } , 
+        {id : "16" ,  First : "Moussa" , last : "diop" , email : "mdiop8862@gmail.com" , tel : 766358520 , Daterv : "10/03/2022" , Heure : "13:00" , note : "BLA BLA BLA BL BLA BLA BLA BLA BLA " } 
         
        
                        ] )

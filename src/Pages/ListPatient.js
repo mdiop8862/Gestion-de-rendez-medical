@@ -30,9 +30,9 @@ const ListPatient = () =>{
         const table = tableInfo.map((liste)=>{
                return(
                 <Fragment>
-                <tr onClick={()=>navigate(`/Info/${30}/DossierMedical/ListConsultation/${2}`)}>    
+                <tr style={{cursor : "pointer"}}>    
 
-                <th scope="row">{liste.First}</th>
+                <th scope="row" onClick={()=>navigate(`/Info/${30}/DossierMedical/ListConsultation/${2}`)}>{liste.First}</th>
 
                 <td>{liste.last}</td>
 
@@ -53,7 +53,6 @@ const ListPatient = () =>{
                         <ul  className="list-group listeinfo list-group-flush">
                             <li className="list-group-item"><span className="listeindex">First & Last Name  : </span> <span className="listevalur">{`${liste.First } ${liste.last}`}</span></li>
                             <li className="list-group-item"><span className="listeindex" >Email  : </span> <span className="listevalur">{`${liste.email }`}</span></li>
-                            <li className="list-group-item"><span className="listeindex">Groupe Sanguin  : </span > <span className="listevalur">{`${liste.Gs }`}</span></li>
                             
                         </ul>
 
