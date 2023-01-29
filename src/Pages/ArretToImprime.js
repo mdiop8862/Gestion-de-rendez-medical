@@ -25,9 +25,9 @@ const ArretToImprime = (props)=>{
 
     <div className="col-4 ">
 
-        <p>Date : 02/02/2001</p>
-        <p>Age: 12 ans</p>
-        <p>Addresse : Dakar </p>
+        <p>{props.inf.prenom}</p>
+        <p>{props.inf.nom}</p>
+        <p>Addresse : {props.inf.addresse} </p>
         
     </div>                 
 

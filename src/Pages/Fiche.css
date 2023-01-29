@@ -162,3 +162,68 @@ label {
 }
 
 */
+
+.loader  { 
+
+  height: 90px;
+  width: 90px;
+  border-radius: 90px;
+  border: 15px solid #808191;
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 55px;
+  border-top: 15px solid  #198754;
+  animation-name: loading ;    
+  animation-delay: 0s;
+  animation-duration: 1s;
+  animation-iteration-count: infinite ;
+  animation-timing-function: linear;
+}
+.mydashed{
+  height: 1px;
+  border: 1px dashed #198754 ;
+  /*#808191; */
+
+  width: 100%;
+  margin-top: 50px !important;
+}
+
+header{
+    
+  padding: 20px;
+  /* #363636; */
+}
+
+header h1{
+  font-family: 'Bangers', cursive;
+  cursor: pointer;
+  
+}
+
+h4 {
+  font-family: 'Bangers', cursive;
+  cursor: pointer;
+}
+
+legend h3 {
+  font-family: 'Bangers', cursive;
+}
+  
+  .loop {
+    position: absolute;
+
+
+  }
+  
+  @keyframes loading {
+    
+  0% {
+     transform: rotate(0);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  
+  }

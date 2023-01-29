@@ -1,12 +1,43 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState , useEffect} from "react";
 import { IoMdClose } from "react-icons/io";
 import { useRef } from "react";
 import ArretToImprime from "./ArretToImprime";
 import { FaSave } from "react-icons/fa";
-
+import { useParams } from "react-router-dom";
+import {db} from "./../Firebase/Firebase" ; 
+import {getDocs , getDoc , collection , doc , addDoc} from "firebase/firestore" ; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ModalArretTravail = (props)=>{
 
+     const [date , setDate] = useState({DateDebut : "" , DateFin : ""})
 
+     const [infPatient , setInfPatient] = useState({})
+
+     useEffect(()=>{
+ 
+         getDoc(doc(db , "Patients" , params))
+ 
+         .then((res)=>
+         {
+             const dateOne= new Date()
+     
+             const dateTwo = new Date(res.data().naissance)
+     
+     
+             const  time= Math.abs(dateTwo - dateOne) ; 
+     
+     
+     
+              const years =Math.ceil(time / (31536000 * 1000) )
+     
+             setInfPatient({...res.data() , years})
+         })
+ 
+     },[])
+ 
+
+      
     const HandleVerifie = (e)=>{
          console.log(e.target.value)
     }
@@ -52,9 +83,80 @@ const ModalArretTravail = (props)=>{
     setImprime(inf)
                         }
 
+    const params = useParams().id
+    const HandleSave = ()=>{
+
+        getDocs(collection(db , "Consultation")) 
+
+
+        .then((res)=>{
+              res.docs.filter((doc)=> doc.data().date === new Date().toLocaleDateString() && doc.data().idPatient === params).map((doc)=>{
+                                
+              addDoc(collection(db , "Arrets") , {
+                                          
+                  Arret : { debut : myinput1.current.value , fin : myinput2.current.value } , 
+
+                  idConsultation : doc.id   
+              
+                     
+               })
+          
+               .then((succ)=>{
+                  console.log(succ)
+                  toast.success('🦄 success!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                  
+          
+               })
+          
+               .catch((err)=>{
+                  console.log(err)
+               })
+          
+             
+                     
+                                 
+      })
+  
+      })
+  
+  
+      .catch((err)=>{
+  
+             console.log(err)
+      })
+
+
+        
+
+
+
+    }
+
 
     return(
         <Fragment>
+
+<ToastContainer
+position="top-right"
+autoClose={2000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>
 
 <div className="ContainerModal"  >
                 
@@ -68,7 +170,7 @@ const ModalArretTravail = (props)=>{
                 <ul className="navbar-nav myliste">
 
                   <li className="nav-item" style={{marginLeft : "15px"}}><button className="btn btn-success" onClick={ShowImprime} >Aperçu et imprimer</button></li>
-                  <li className="nav-item" style={{marginLeft : "15px"}}><button className="btn btn-success" onClick={()=>ShowImprime(true)  } ><span><FaSave/></span> Sauvegarder</button></li>
+                  <li className="nav-item" style={{marginLeft : "15px"}} onClick={HandleSave}><button className="btn btn-success" ><span><FaSave/></span> Sauvegarder</button></li>
 
 
                 </ul>
@@ -79,23 +181,38 @@ const ModalArretTravail = (props)=>{
                 
 
                 <div className="containerOne" style={{padding : "15px"}}>
-                   <label className="form-label">Patient</label>
-                   <input className="form-control" style={{border : "1px solid black"}} />
 
-                   <div className="row " style={{marginTop : "5px"}}>
+                <div className="row " style={{marginTop : "5px"}}>
                       <div className="col-6">
-                      <label className="form-label">Age</label>
-                      <input className="form-control" type={"number"} style={{border : "1px solid black "}} />
+                      <label className="form-label">Prenom</label>
+                      <input disabled className="form-control" type={"text"} style={{border : "1px solid black "}} value={infPatient.prenom} />
 
                       </div>
 
                       <div className="col-6">
-                      <label className="form-label">Date</label>
-                      <input className="form-control" type={"date"} style={{border : "1px solid black "}} />
+                      <label className="form-label">Nom</label>
+                      <input disabled className="form-control" type={"text"} style={{border : "1px solid black "}} value={infPatient.nom} />
 
                       </div>
 
                    </div>
+
+                   <div className="row " style={{marginTop : "5px"}}>
+                      <div className="col-6">
+                      <label className="form-label">Sexe</label>
+                      <input disabled className="form-control" type={"text"} style={{border : "1px solid black "}} value={infPatient.sexe} />
+
+                      </div>
+
+                      <div className="col-6">
+                      <label className="form-label">Date de naissance</label>
+                      <input disabled className="form-control" type={"text"} style={{border : "1px solid black "}} value={new Date(infPatient.naissance).toLocaleDateString("en-US")} />
+
+                      </div>
+
+                   </div>
+
+                 
 
                 </div>
 
@@ -105,13 +222,13 @@ const ModalArretTravail = (props)=>{
 
                             <div className="col-4">
                                 <span>Du : </span>
-                                <input type={"date"} ref={myinput1} className="fw-bold" />
+                                <input type={"date"} ref={myinput1} className="fw-bold"   />
 
                             </div>
 
                             <div className="col-4">
                                 <span>Au : </span>
-                                <input type={"date"} ref={myinput2} onChange={HandleCompte} className="fw-bold" />
+                                <input type={"date"} ref={myinput2} onChange={HandleCompte} className="fw-bold"  />
 
                             </div>
 
@@ -133,7 +250,7 @@ const ModalArretTravail = (props)=>{
                 
           
                  {
-                    (imprime === true) && (<ArretToImprime myfunc={Close}  />)
+                    (imprime === true) && (<ArretToImprime myfunc={Close} inf = {infPatient}  />)
                  }
                
 

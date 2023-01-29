@@ -19,6 +19,7 @@
     margin-top: 10px;
     
 }
+
 hr {
     background-color : #808191 !important ;
     height: 2px;
@@ -40,9 +41,11 @@ hr {
     background-color: #181b3a !important;
     color: #808191 !important;
 }
+
 .bg-green {
     background-color: #b7ffe913;
 }
+
 .action-info{
     color:#01d293 !important  ;
     font-size: 20px;

@@ -5,6 +5,20 @@ import ReactToPrint, { useReactToPrint } from "react-to-print";
 
 
 const BilanToImprime = (props)=>{
+    const CalculAge = ()=>{
+        const dateOne= new Date()
+    
+        const dateTwo = new Date(props.inf.naissance)
+
+
+        const  time= Math.abs(dateTwo - dateOne) ; 
+
+
+
+         const years =Math.ceil(time / (31536000 * 1000) )
+
+           return {years} 
+    }
     const mydiv = useRef(null)  
     return(
         <Fragment>
@@ -13,7 +27,7 @@ const BilanToImprime = (props)=>{
 
 <div ref={mydiv}>
 
-<h5 className="text-dark text-center fw-bold">CLINIQUE DIOP</h5>
+<h5 className="text-dark text-center fw-bold">CLINIQUE SOS</h5>
 <hr id="mysep"/>
 <div className="row justify-content-between ">
     <div className="col-4">
@@ -27,9 +41,10 @@ const BilanToImprime = (props)=>{
 
     <div className="col-4 ">
 
-        <p>Date : 02/02/2001</p>
-        <p>Age: 12 ans</p>
-        <p>Addresse : Dakar </p>
+        
+        <p>{props.inf.prenom}</p>
+        <p>{props.inf.nom}</p>
+        <p>Addresse : {props.inf.addresse} </p>
         
     </div>                 
 

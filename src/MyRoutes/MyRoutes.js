@@ -15,19 +15,26 @@ import Fiche from "../Pages/Fiche";
 import Informations from "../Pages/Informations";
 import NextRv from "../Pages/NextRv";
 import DossierMedical from "../Pages/SecondDashboard/DossierMedical";
+import Demande from "../Pages/Demande";
 const MyRoutes = ()=>{
     return(
         <Fragment>
 
             <Routes>
 
-                <Route  path="/"  element={<HomePage/>} />
+                <Route  path="HomePage"  element={<HomePage/>} />
+
+                <Route path="Demande" element={<Demande/>}  />
 
                 <Route  path="ListPatient" element={<ListPatient/>}  />
                 <Route  path="AddPatient" element={<AddPatient/>} />
 
                 <Route path="AddRv" element={<AddRv/>} />
                 <Route path="ListRv" element={<ListRv/>} />
+
+                <Route path="/AddRv/:id" element={<AddRv/>}  />
+
+                <Route path="/AddPatient/:id" element={<AddPatient/>} />
 
                 <Route path="Consultation" element={<AddConsultation/>} />
 
@@ -45,7 +52,7 @@ const MyRoutes = ()=>{
 
                      <Route  path="DossierMedical" element={<DossierMedical/>} >
  
-                    <Route       path="ListConsultation/:idConsultation" element={<ListConsultation/>} />
+                    <Route   path="ListConsultation/:idConsultation" element={<ListConsultation/>} />
 
                      </Route>
                      
@@ -55,7 +62,7 @@ const MyRoutes = ()=>{
 
                 <Route       path="Setting" element={<Setting/>} />
 
-                <Route path="Connection" element={<Connection />} />
+                <Route path="/" element={<Connection />} />
 
 
 

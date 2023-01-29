@@ -1,10 +1,53 @@
-import React, { Fragment, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import style from "./DossierMedical.css"
-
+import React, { Fragment, useEffect, useState } from "react";
+import { NavLink, Outlet, useParams } from "react-router-dom";
+import style from "./DossierMedical.css" ; 
+import {db}  from "../../Firebase/Firebase" ; 
+import { getDoc, collection , doc , getDocs} from "firebase/firestore";
+import Loader from "../Loader"; 
 
 const DossierMedical = ()=>{
-        const [Consultations , setConsultation] = useState([{thedate : "18/02/2020" , id : "1"} , {thedate : "15/10/2020" , id : "2"} , {thedate : "11/11/2021" , id : "3"}]) 
+        const [Consultations , setConsultation] = useState([]) 
+        
+         const params = useParams().id
+         console.log(params)
+
+         useEffect(()=>{
+
+            let isRender = true 
+
+        getDocs(collection(db , "Consultation" ))
+        .then((res)=>{
+                    res.docs.filter((doc) => doc.data().idPatient === params).forEach((doc)=>{
+                        
+                                (isRender) && setConsultation((prev)=> [...prev , {...doc.data() , idConsultation : doc.id}])
+                    })
+        })
+ 
+        .catch((err)=>{
+            console.log(err)
+        })
+
+                        
+
+                          return ()=> isRender = false
+              
+         },[])
+
+
+         console.log(Consultations)
+
+         const isLoader = (Consultations.length ===0 ) ? 
+         
+         (
+         <div style={{marginTop : "250px" , marginLeft : "-40px"}}>
+         <Loader/>
+         </div>
+         )
+
+         :
+
+         (<Outlet/>)
+
     return(
         <Fragment>
 
@@ -16,9 +59,9 @@ const DossierMedical = ()=>{
 
                        
                     {
-                            Consultations.map((Consultation)=>{
+                          Consultations.map((Consultation)=>{
                                 return(
-                                    <li className="nav-item text-light" style={{marginLeft : "20px" , padding :"20px"}} ><NavLink className={"nav-link mynavlink"} to={`ListConsultation/${Consultation.id}`} 
+                                    <li className="nav-item text-light" style={{marginLeft : "20px" , padding :"20px"}} ><NavLink className={"nav-link mynavlink"} to={`ListConsultation/${Consultation.idConsultation}`} 
                                     style ={({isActive})=>{
                                        
                                         return(
@@ -33,9 +76,9 @@ const DossierMedical = ()=>{
                                         )
                              }}>
                                         
-                                        Consultation {Consultation.thedate} </NavLink></li>
+                                        Consultation {Consultation.date} </NavLink></li>
                                 )
-                            })
+                            }) 
                         }
                        
                     </ul>
@@ -43,7 +86,10 @@ const DossierMedical = ()=>{
                 </nav>
 
                 <div className="col-10 content" >
-                    <Outlet/>
+
+                    {
+                        isLoader
+                    }
 
                 </div>
 

@@ -1,21 +1,47 @@
 import React, { Fragment, useState } from "react";
 import "./AddConsultation.css" ; 
-import  {useNavigate} from "react-router-dom"
+import  {useNavigate} from "react-router-dom" ;
+import { useEffect } from "react";
+import { collection , getDocs} from "firebase/firestore" ; 
+import {db} from "../../src/Firebase/Firebase" ; 
+
 
 const AddConsultation = ()=>{
     const navigate = useNavigate()
-    const tab = [{Name : "Moussa" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"} , {Name : "fallou" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"} ,
-    {Name : "abdou" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"} , {Name : "khadime" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"} , 
-    {Name : "mouhamed" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"}, {Name : "sokhna" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"} , {Name : "nogaye" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"}
-,   {Name : "isamilla" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"}, {Name : "birane" , Lastname : "Diop" , Age : "30" , email : "mdiop8862@gmail.com"}]
+   
 
-    const [Datas , setData] = useState([...tab])
+    const [Datas , setData] = useState([])
 
     const [search , setSearch] = useState("")
 
     const HandleChange = (e)=>{
                 setSearch(e.target.value)
     }
+
+
+    useEffect(()=>{
+
+        let isRender = true 
+
+        getDocs(collection(db , "Patients"))
+        .then((res)=>{
+               res.docs.forEach((doc)=>{
+
+                    
+                          isRender === true  &&   setData((prev)=>[...prev , {...doc.data() , id : doc.id}])
+
+                         
+
+                
+               })
+        })
+        .catch((err)=>{
+              console.log(err)
+        })
+
+         return ()=> isRender = false
+    },[])
+
 
     return(
         <div className="Addpatient">
@@ -40,10 +66,22 @@ const AddConsultation = ()=>{
                    <ul  className="list-group list-group-flush">
 
                         {
-                            tab.filter((elt)=> elt.Name.includes(search))
+                            Datas.filter((elt)=> elt.prenom.includes(search))
                             .map((elt)=>{
+
+                                const dateOne= new Date()
+    
+                                const dateTwo = new Date(elt.naissance)
+                        
+                        
+                                const  time= Math.abs(dateTwo - dateOne) ; 
+                        
+                        
+                        
+                                 const years =Math.ceil(time / (31536000 * 1000) )
+                        
                                 return(
-                                    <li className="list-group-item infopatient" onClick={()=>navigate(`/Info/${elt.Age}/Fiche`)}>{elt.Name} , {elt.Lastname} , Age : {elt.Age}, email : {elt.email}</li>
+                                    <li className="list-group-item infopatient" onClick={()=>navigate(`/Info/${elt.id}/Fiche`)}>{elt.prenom} , {elt.nom} , Age : {years}, email : {elt.email}</li>
                                 )
 
 
@@ -76,6 +114,8 @@ const AddConsultation = ()=>{
         <button type="button" class="btn btn-success" onClick={()=>navigate("/AddPatient")} >Add Patient</button>
 
         </div>
+
+        
                 
 
             

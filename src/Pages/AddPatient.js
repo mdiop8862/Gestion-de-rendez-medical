@@ -1,6 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import style from  "./AddPatient.css" ; 
 import { useState } from "react";
+import {db} from "../../src/Firebase/Firebase" ; 
+import { collection, addDoc, getDoc , doc, updateDoc } from "firebase/firestore";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddPatient = ()=>{
 
@@ -9,11 +14,13 @@ const AddPatient = ()=>{
 
     const [myvalues , setValue]=useState(datavalu)
 
-    const {nom , prenom , naissance , addresse , telephone , email , sexe } = myvalues ; 
+    const {nom , prenom , naissance , addresse , telephone , email , sexe , age} = myvalues ; 
 
     const [Feminin , setFeminin] = useState(false)
 
     const [Masculin , setMasculin] = useState(false) 
+
+    const navigate = useNavigate()
     
     const changeChoose = (choose)=>{
 
@@ -22,6 +29,11 @@ const AddPatient = ()=>{
                   setMasculin( !Masculin)
 
                   setFeminin(Masculin)
+
+                  setValue({
+                    ...myvalues , 
+                     sexe  : "Masculin"
+                  })
                    
                  
 
@@ -31,6 +43,11 @@ const AddPatient = ()=>{
                setFeminin( !Feminin)
 
                setMasculin(Feminin)
+
+               setValue({
+                ...myvalues , 
+                 sexe : "Feminin"
+               })
 
            }
 
@@ -51,9 +68,119 @@ const AddPatient = ()=>{
 
 
 
-         console.log(myvalues)
     }
 
+    const HandleSubmit = (e)=>{
+        e.preventDefault()
+        console.log(myvalues)
+
+        // on ajoute le contenu du state dans la base de donnes 
+
+        if(params){
+             
+            updateDoc(doc(db , "Patients" , params) , {
+                nom : myvalues.nom , 
+                prenom : myvalues.prenom , 
+                naissance : myvalues.naissance , 
+                addresse : myvalues.addresse , 
+                telephone : myvalues.telephone , 
+                email : myvalues.email , 
+                sexe : myvalues.sexe 
+            })
+
+            .then((res) =>{
+                console.log(res)
+
+                setValue({...datavalu})
+                setFeminin(false)
+                setMasculin(false)
+
+                toast.success('🦄 success!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    setTimeout(() => {
+                        navigate("/ListPatient")
+                    }, 2000);
+                    
+            })
+
+            .catch((err)=>{
+                console.log(err)
+            })
+        }
+
+        else{
+
+            addDoc(collection(db , "Patients") , {
+                nom : myvalues.nom , 
+                prenom : myvalues.prenom , 
+                naissance : myvalues.naissance , 
+                addresse : myvalues.addresse , 
+                telephone : myvalues.telephone , 
+                email : myvalues.email , 
+                sexe : myvalues.sexe 
+            } )
+    
+            .then((res)=>{
+                console.log(res)
+                setValue({...datavalu})
+                setFeminin(false)
+                setMasculin(false)
+                toast.success('🦄 success !', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+
+        }
+
+        
+
+        
+
+    }
+
+    const HandleReset = ()=>{
+        setValue({...datavalu})
+    }
+
+    const params = useParams().id
+
+    useEffect(()=>{
+        if(params){
+            console.log(params)
+
+            getDoc(doc(db , "Patients" , params))
+
+            .then((res)=>{
+                setValue(res.data())
+            })
+
+            .catch((err)=>{
+                console.log(err)
+            })
+        }
+    },[])
+
+
+
+    const title= (params) ? (<h4 id="add">Modify Patient</h4>)  : (<h4 id="add">Add Patient</h4>)
     
        
      
@@ -62,12 +189,25 @@ const AddPatient = ()=>{
         
           
         <div className="Addpatient">
-          
-                     <h4 id="add">Add Patient</h4>
+                    <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>          
+                   {
+                    title
+                   }   
 
         <hr/>
 
-        <form className="myForm ">
+        <form className="myForm " style={{marginTop:"80x"}}  onSubmit={HandleSubmit}> 
 
             <div className=" row justify-content-between form-group">
                 <div className="col-5">
@@ -94,7 +234,7 @@ const AddPatient = ()=>{
                   
                    <input className="myinput" type={"date"} autoComplete="off" id="naissance" onChange={changeValue} value={`${naissance}`} />
 
-                   <label className="label-control text-light mylabel" >Date of Birth</label>
+                   <label className="label-control text-light mylabel"  >Date of Birth</label>
 
                 </div>
 
@@ -129,25 +269,32 @@ const AddPatient = ()=>{
 
             </div>
 
-            <label className="label-control text-light">Sexe</label>
+           
 
-            <div className="mb-2">
+                <label className="label-control text-light">Sexe</label>
 
-            <div class="form-check form-check-inline">
+<div className="mb-2">
 
-                  <input class="form-check-input" type="radio"  id="sexe"  name="sexe" onChange={()=>changeChoose("masculin")}  value={`$Masculin`}  />
-                  <label class="form-check-label text-light " for="inlineRadio1">Masculin</label>
+<div class="form-check form-check-inline">
 
-            </div>
+      <input class="form-check-input" type="radio"  id="sexe"  name="sexe" onChange={()=>changeChoose("masculin")}  value={`$Masculin`} />
+      <label class="form-check-label text-light " for="inlineRadio1">Masculin</label>
 
-            <div class="form-check form-check-inline">
+</div>
 
-                 <input class="form-check-input " type="radio"  id="sexe"   name="sexe"  onChange={()=>changeChoose("feminin")} value={`$Feminin`} />
-                 <label class="form-check-label text-light" for="inlineRadio2">Feminin</label>
+<div class="form-check form-check-inline">
 
-            </div>
+     <input class="form-check-input " type="radio"  id="sexe"   name="sexe"  onChange={()=>changeChoose("feminin")} value={`$Feminin`}  />
+     <label class="form-check-label text-light" for="inlineRadio2">Feminin</label>
 
-            </div>
+</div>
+
+</div>
+                  
+                  
+
+
+            
 
             
 
@@ -155,11 +302,11 @@ const AddPatient = ()=>{
 
             <div className="group d-flex col-2 justify-content-between ">
                 
-                <button type="button" class="btn btn-success">Sauvegarder</button>
+                <button type="submit" class="btn btn-success">Sauvegarder</button>
             
 
                 
-                <button type="button" class="btn btn-danger">Annuler</button>
+                <button type="button" onClick={HandleReset}  class="btn btn-danger">Annuler</button>
             
             
             

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import "./HomePage.css" ; 
 import { Pie , Bar} from 'react-chartjs-2';
 import {
@@ -10,13 +10,19 @@ import {
 
 const HomePage = () =>{
 
+ const [myval , setval]= useState("moussa")
+
+ const handle=(myval)=>{
+     setval(myval)
+ }
+
     const data = {
 
         labels: ['Covid', 'Paludisme', 'Sida', 'Tuberculose', 'Cancer', 'Prostate'],
 
         datasets: [
           {
-            data: [500, 400, 180, 150, 100, 60],
+            data: [5, 2, 1, 3, 1, 4],
 
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
@@ -48,10 +54,16 @@ const HomePage = () =>{
         <Fragment>
 
             <div className="HommePage" >
+              
+              <input value={myval} onChange={handle} />
+            
 
                 <div className="container">
+
                     
                     <div className="" style={{marginTop : "100px"  }}>
+
+                      
 
                                  <Bar data={data} options={options} />
 

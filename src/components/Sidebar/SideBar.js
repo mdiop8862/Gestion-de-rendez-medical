@@ -7,8 +7,10 @@ import {IoMdArrowDropdown} from "react-icons/io"
 import { useRef } from "react";
 import {NavLink}  from "react-router-dom"
 import { Link } from "react-router-dom";
-
-import stethoscope from "../../images/stethoscope.png"
+import {auth} from "../../Firebase/Firebase" ;
+import { useNavigate } from "react-router-dom";
+import stethoscope from "../../images/stethoscope.png" ; 
+import { signOut } from "firebase/auth";
 
 const SideBar = ()=>{
 
@@ -17,6 +19,17 @@ const SideBar = ()=>{
   const dropdownmenu = useRef(null)
   const dropdownmenu2 = useRef(null)
   const dropdownmenu3 = useRef(null)
+   const navigate = useNavigate()
+
+  const HandleSignOut = ()=>{
+    signOut(auth)
+    .then(() => {
+          navigate("/")
+    })
+    .catch((error) => {
+      navigate("HomePage")
+    });
+  }
 
   const dropdown =(e)=>{
 
@@ -70,7 +83,7 @@ const SideBar = ()=>{
 
                                    
                                     
-                            <NavLink to={"/"} end  className="nav-link" style ={({isActive})=>{
+                            <NavLink to={"HomePage"} end  className="nav-link" style ={({isActive})=>{
                                        
                                        return(
                                         {
@@ -148,8 +161,9 @@ const SideBar = ()=>{
                                                             }
                                                            )
                                         }}>
-                                          <i className="ri-file-list-3-line"></i> List </NavLink></li>
-                                        <li className=" nav-item "><NavLink to={"AddRv"}  className="nav-link"  style={({isActive})=>{
+                                      <i className="ri-file-list-3-line"></i> List </NavLink></li> 
+
+                                   {/*}     <li className=" nav-item "><NavLink to={"AddRv"}  className="nav-link"  style={({isActive})=>{
                                                            return(
                                                             {
                                                                color: isActive &&  "white" ,
@@ -159,7 +173,7 @@ const SideBar = ()=>{
                                                             }
                                                            )
                                         }}>
-                                          <i className="ri-add-circle-line"></i> Add </NavLink></li>
+                                      <i className="ri-add-circle-line"></i> Add </NavLink></li> {*/}
                                         
                                         
                                       </ul>  
@@ -187,6 +201,28 @@ const SideBar = ()=>{
                                     </NavLink> 
                                    
                                    </li> 
+
+                                   <li className="nav-item dropdownn "> 
+                                   
+                                   <NavLink to={"Demande"} className="nav-link"  style ={({isActive})=>{
+                                       
+                                       return(
+                                        {
+                                          color: isActive &&  "white" ,
+                                          background:isActive && "#b7ffe913" ,
+                                          padding: isActive && "6px" ,
+                                          borderRadius:isActive && "5px"
+                                        }
+                                       )
+                            }}>
+                                    
+                                    <i className="ri-stethoscope-line"></i> Demande 
+                                    
+                                    </NavLink> 
+                                   
+                                   </li> 
+
+
                                    <li className="nav-item"> <NavLink to={"Setting"} className="nav-link" style={({isActive})=>{
                                                            return(
                                                             {
@@ -201,7 +237,7 @@ const SideBar = ()=>{
 
                                     
 
-                                   <li className="nav-item " id="logout"> <NavLink to={"Connection"} className="nav-link" style={({isActive})=>{
+                                   <li className="nav-item " id="logout" onClick={HandleSignOut}> <NavLink to={"Connection"} className="nav-link" style={({isActive})=>{
                                                            return(
                                                             {
                                                                color: isActive &&  "white" ,
@@ -211,7 +247,7 @@ const SideBar = ()=>{
                                                             }
                                                            )
                                         }}>
-                                    <i className="ri-logout-circle-line" id="logoutIcone"></i> Logout</NavLink> </li> 
+                                    <i className="ri-logout-circle-line" id="logoutIcone" ></i> Logout</NavLink> </li> 
 
                                  </ul>
 

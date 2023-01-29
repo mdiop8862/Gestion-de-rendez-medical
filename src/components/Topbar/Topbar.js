@@ -1,6 +1,8 @@
 import React from "react";
-import style from "./TopbarStyle.css"
-import profil from "../../images/profil.jpg"
+import style from "./TopbarStyle.css" ;
+import profil from "../../images/profil.jpg" ;
+import auth from "../../Firebase/Firebase"  ;
+
 const Topbar = ()=>{
     return(
         <nav className=" topbar  fixed-top  d-flex ">

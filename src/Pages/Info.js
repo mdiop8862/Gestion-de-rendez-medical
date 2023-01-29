@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import style from "./IndexInfo.css" ; 
 import {CgNotes  } from "react-icons/cg" ; 
@@ -14,6 +14,7 @@ import ModalBilan from "./ModalBilan";
 import ModalArretTravail from "./ModalArretTravail";
 
 const Info = (props)=>{
+       const params = useParams().id
        const NormalLink = "nav-link   myitem "
        const activeLink = " myitem nav-link activeLink " 
       
@@ -115,7 +116,7 @@ const Info = (props)=>{
 
           <li className="nav-item  " style={{ marginLeft : "20px"}}><NavLink to={"NextRv"} className={({isActive}) => (isActive ? activeLink : NormalLink)}  >Prochain RDV</NavLink></li>
 
-          <li className="nav-item  " style={{marginLeft : "20px"}}><NavLink to={`/Info/${30}/DossierMedical/ListConsultation/${1}`} className={({isActive}) => (isActive ? activeLink : NormalLink)}  >Dossier Medical</NavLink></li>
+          <li className="nav-item  " style={{marginLeft : "20px"}}><NavLink to={`DossierMedical` } className={({isActive}) => (isActive ? activeLink : NormalLink)}  >Dossier Medical</NavLink></li>
 
          </ul>
       

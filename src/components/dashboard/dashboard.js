@@ -1,12 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./dashboard.css"
 import SideBar from "../Sidebar/SideBar";
 import Topbar from "../Topbar/Topbar";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import MyRoutes from "../../MyRoutes/MyRoutes";
 import { Outlet } from "react-router-dom";
 
 const Dashboard = ()=>{
+    const location = useLocation()
+    const [path , setPath] = useState(null)
+
+    
+
+
     return(
         
         <div className="dashboard d-flex ">
